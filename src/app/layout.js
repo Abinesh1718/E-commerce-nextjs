@@ -14,11 +14,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <App>
-            {children}
-          </App>
-        </AuthProvider>
+        <App>
+          {children}
+        </App>
         <Toaster position="top-center" reverseOrder={false} />
       </body>
     </html>

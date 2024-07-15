@@ -1,5 +1,4 @@
 
-// src/app/api/products/[id]/route.js
 import { NextResponse } from "next/server";
 import pool from "../../../lib/db";
 
@@ -7,8 +6,6 @@ export async function DELETE(request) {
 
     console.log(request);
     try {
-        // Extract the product ID from the URL
-
         const id = request.nextUrl.pathname.split('/').pop();
         console.log("Product ID to delete:", id);
 
