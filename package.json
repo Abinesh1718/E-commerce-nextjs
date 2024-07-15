@@ -1,9 +1,9 @@
 {
   "name": "e-commerce-app-assessemnt",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"next dev\"",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
