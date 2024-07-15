@@ -5,12 +5,11 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"next dev\"",
     "build": "next build",
-    "start": "next start",
-    "server": "node lib/server.js"
+    "start": "next start"
   },
   "proxy": {
     "/api": {
-      "target": "http://localhost:5000",
+      "target": "http://localhost:500",
       "changeOrigin": true,
       "pathRewrite": {
         "^/api": ""

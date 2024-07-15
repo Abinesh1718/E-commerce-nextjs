@@ -2,6 +2,6 @@
 module.exports = {
     reactStrictMode: true,
     images: {
-        domains: ['localhost'],  // Add domains for external images if needed
+        domains: ['https://e-commerce-nextjs-cekt.vercel.app/'],
     },
 }
