@@ -3,18 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm run server\" \"next dev\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "server": "node lib/server.js"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:5000",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.6",
+    "@uploadthing/react": "^6.7.2",
+    "axios": "^1.7.2",
+    "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "formidable": "^3.5.1",
+    "http-proxy-middleware": "^3.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.2.5",
+    "next-auth": "^4.24.7",
+    "pg": "^8.12.0",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.2.1",
+    "react-redux": "^9.1.2",
+    "uploadthing": "^6.13.2"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "typescript": "5.5.3"
   }
 }
