@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import AuthProvider from "../components/admin-panel/Auth-Provider";
 import App from "./App";
 import { Toaster } from "react-hot-toast";
 import './globals.css'
