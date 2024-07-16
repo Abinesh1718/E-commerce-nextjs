@@ -12,6 +12,7 @@ export async function GET(req) {
         query += ' WHERE name ILIKE $1 OR category ILIKE $1 OR description ILIKE $1';
         values = [`%${search}%`];
     }
+    
 
     try {
         const { rows } = await pool.query(query, values);

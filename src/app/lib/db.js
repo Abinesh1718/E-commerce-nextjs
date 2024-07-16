@@ -1,11 +1,12 @@
+// src/lib/db.js
+
 import { Pool } from 'pg';
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'first',
-    password: 'harinima',
-    port: 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,  // This is sometimes required for Heroku or cloud databases
+    },
 });
 
 export default pool;

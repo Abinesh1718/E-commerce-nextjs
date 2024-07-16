@@ -4,7 +4,7 @@ import pool from '../../lib/db';
 export async function POST(request) {
     try {
         const { name, category, price, description } = await request.json();
-
+        
         const result = await pool.query(
             'INSERT INTO products (name, price, category, description) VALUES ($1, $2, $3, $4) RETURNING *',
             [name, price, category, description]

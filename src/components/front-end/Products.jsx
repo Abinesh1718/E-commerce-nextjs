@@ -5,9 +5,38 @@ import ProductCard from './ProductCard'
 import bird from '../../assets/bird.jpg'
 
 function Products({ search }) {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([
+        {
+            "id": 114,
+            "name": "Sun glass",
+            "description": "Description for product 1",
+            "img": "https://via.placeholder.com/150",
+            "price": "10.99",
+            "category": "Category 1"
+        },
 
-    console.log("Searcghg", search);
+        {
+            "id": 115,
+            "name": "TV",
+            "description": "Description for product 1",
+            "img": "https://via.placeholder.com/150",
+            "price": "10.99",
+            "category": "Category 1"
+        },
+
+        {
+            "id": 116,
+            "name": "Headphones",
+            "description": "Description for product 1",
+            "img": "https://via.placeholder.com/150",
+            "price": "10.99",
+            "category": "Category 1"
+        }
+
+    ]);
+
+
+    console.log("HHHHHHHHHHHH", search);
 
     useEffect(() => {
         axios.get("/api/getproducts", {
