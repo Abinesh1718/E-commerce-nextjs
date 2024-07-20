@@ -45,10 +45,3 @@ apiRoute.post(async (req, res) => {
     }
 });
 
-export const config = {
-    api: {
-        bodyParser: false, // Disallow body parsing, let `multer` handle it
-    },
-};
-
-export default apiRoute;
