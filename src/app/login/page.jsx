@@ -6,16 +6,25 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 import { makeToast } from '../utlis/helper';
+import { useAppDispatch, useAppSelector } from '../../components/redux/hook';
+import { setLoading } from '../../components/redux/features/loadingReducer';
+import Loader from '../../components/admin-panel/Loader';
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
+    const dispatch = useAppDispatch();
+    const isLoading = useAppSelector(data => data.loadingReducer)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        dispatch(setLoading(true));
+
         setError('');
+
 
         const body = {
             email: email,
@@ -29,20 +38,21 @@ export default function Login() {
             if (response.status === 200) {
                 console.log('Login successful:', response.data);
                 localStorage.setItem('token', response.data.token);
-                
+
                 makeToast('Login successfull!')
 
 
+
                 setTimeout(() => {
+                    dispatch(setLoading(false));
                     router.push('/admin/dashboard');
                 }, 1000);
-
-
-
+                dispatch(setLoading(false));
 
             }
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred. Please try again.');
+            dispatch(setLoading(false));
 
             makeToast(err.response?.data?.message, 'error');
 
@@ -58,6 +68,8 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            {isLoading && <Loader />}
+
             <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6">Login</h2>
                 <form onSubmit={handleSubmit}>
@@ -88,7 +100,10 @@ export default function Login() {
 
                     {/* <Link className='m-20 p-10' href="#" >Signup</Link> */}
                 </form>
-                <button onClick={handlenaviagte} className='p-5px m-40px flex'>Signup here ?</button>
+                <button onClick={(e) => {
+                    e.preventDefault();
+                    handlenaviagte()
+                }} className='p-5px m-40px flex'>Signup here ?</button>
             </div>
         </div>
     );

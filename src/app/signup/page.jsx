@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
 import { makeToast } from '../utlis/helper';
+import { setLoading } from '../../components/redux/features/loadingReducer'
+import { useAppDispatch, useAppSelector } from '../../components/redux/hook'
+import Loader from '../../components/admin-panel/Loader';
 
 export default function Signup() {
     const [email, setEmail] = useState('');
@@ -10,10 +13,13 @@ export default function Signup() {
     const [error, setError] = useState('');
     const [user, setuser] = useState("")
     const router = useRouter();
+    const dispatch = useAppDispatch();
+    const isLoading = useAppSelector(data => data.loadingReducer)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        dispatch(setLoading(true));
 
         const body = {
             email: email,
@@ -30,6 +36,8 @@ export default function Signup() {
 
                 makeToast('Signup successfull!')
                 setTimeout(() => {
+                    dispatch(setLoading(false));
+
                     router.push('/login');
 
                 }, 1000);
@@ -37,6 +45,9 @@ export default function Signup() {
             }
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred. Please try again.');
+            dispatch(setLoading(false));
+            makeToast(err.response?.data?.message, 'error');
+
             console.log('Signup error:', err);
         }
     };
@@ -46,6 +57,8 @@ export default function Signup() {
     }
     return (
         <div className="container mx-auto p-4">
+            {isLoading && <Loader />}
+
             <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -96,9 +109,10 @@ export default function Signup() {
                     >
                         Sign Up
                     </button>
-                    <button onClick={handlenaviagte} >Login here ?</button>
-
-
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        handlenaviagte();
+                    }} >Login here ?</button>
                 </div>
             </form>
         </div>

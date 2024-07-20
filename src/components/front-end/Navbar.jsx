@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getToken } from 'next-auth/jwt';
 import { useRouter } from 'next/navigation'
 import { makeToast } from '../../app/utlis/helper';
+import { LiaHandPointRightSolid } from "react-icons/lia";
 
 
 function Navbar({ setshowcart, setsearch }) {
@@ -48,6 +49,10 @@ function Navbar({ setshowcart, setsearch }) {
                         </div>
                     </div>
                     <div className='upperCase text-2xl rounded font-bold'>
+                        <div className=' flex justify-between items-center'>
+                            <LiaHandPointRightSolid />
+                        </div>
+
                         <button onClick={handlenaviagte}> Become a  Seller </button>
                     </div>
 
