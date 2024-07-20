@@ -35,9 +35,6 @@ function Products({ search }) {
 
     ]);
 
-
-    console.log("HHHHHHHHHHHH", search);
-
     useEffect(() => {
         axios.get("/api/getproducts", {
             params: { search: search }
