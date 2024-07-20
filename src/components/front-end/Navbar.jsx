@@ -48,12 +48,11 @@ function Navbar({ setshowcart, setsearch }) {
                             <FcSearch />
                         </div>
                     </div>
-                    <div className='upperCase text-2xl rounded font-bold'>
-                        <div className=' flex justify-between items-center'>
+                    <div className="uppercase text-2xl rounded font-bold flex items-center">
+                        <div className="mr-5">
                             <LiaHandPointRightSolid />
                         </div>
-
-                        <button onClick={handlenaviagte}> Become a  Seller </button>
+                        <button onClick={handlenaviagte}>Become a Seller</button>
                     </div>
 
                     <div className="flex gap-4 md:gap-8 items-center">
