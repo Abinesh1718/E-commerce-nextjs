@@ -11,18 +11,39 @@ function Products({ search }) {
     const [products, setProducts] = useState([]);
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector(data => data.loadingReducer)
+
+
     useEffect(() => {
-        dispatch(setLoading(true));
-        axios.get("/api/getproducts", {
-            params: { search: search }
-        })
-            .then((res) => {
-                console.log(res);
-                setProducts(res.data);
-            })
-            .catch((err) => console.log(err)).finally(() => dispatch(setLoading(false))
-            )
-    }, [search]);
+        const fetchProducts = async () => {
+            dispatch(setLoading(true));
+            try {
+                const localResponse = await axios.get("/api/getproducts");
+                try {
+                    const externalResponse = await axios.get("https://fakestoreapi.com/products");
+
+                    const updatedProducts = await localResponse.data.map((product, index) => {
+                        if (product.id) {
+                            return { ...product, img: externalResponse.data[index].image };
+                        }
+                        return product;
+                    });
+                    console.log(externalResponse.data.image, updatedProducts);
+
+                    setProducts(updatedProducts)
+                } catch (error) {
+                    console.error("Error fetching external products:", error);
+                }
+                // setProducts(localResponse.data);
+            } catch (error) {
+                console.error("Error fetching local products:", error);
+            } finally {
+                dispatch(setLoading(false));
+            }
+        };
+        fetchProducts();
+    }, []);
+
+
 
 
     return <> {isLoading && <Loader />}
@@ -35,7 +56,7 @@ function Products({ search }) {
                     <ProductCard
                         key={item.id}
                         id={item.id}
-                        img={bird}
+                        img={item.img}
                         category={item.category}
                         title={item.name}
                         price={item.price}

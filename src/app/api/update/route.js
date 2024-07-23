@@ -4,7 +4,6 @@ import pool from "../../lib/db";
 export async function PUT(request, URLParams) {
 
     const { id, name, price, category } = await request.json();
-    console.log("SCSSSS", id);
 
     try {
         const result = await pool.query(

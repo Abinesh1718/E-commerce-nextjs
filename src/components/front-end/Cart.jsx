@@ -19,7 +19,7 @@ function Cart({ setshowcart }) {
         <div className="bg-[#0000007d] w-full min-h-screen fixed left-0 top-0 z-20 overflow-y-scroll">
             <div className="max-w-[400px] w-full min-h-full bg-white absolute right-0 top-0 p-6">
                 <RxCross1
-                    className="absolute right-0 top-0 m-6 text-[24px] cursor-pointer"
+                    className="absolute right-0 hover:text-red-600 top-0 m-6 text-[24px] cursor-pointer"
                     onClick={() => setshowcart(false)}
                 />
                 <h3 className='pt-6 text-lg font-medium text-gray-600 uppercase'>
@@ -40,11 +40,11 @@ function Cart({ setshowcart }) {
                     <p>${getTotal()}.00</p>
                 </div>
 
-                <button className='bg-black text-white text-center w-full rounded-3xl py-2 hover:bg-accent mb-4 mt-4'>
+                {/* <button className='bg-black text-white text-center w-full rounded-3xl py-2 hover:bg-accent mb-4 mt-4'>
                     View Cart
-                </button>
+                </button> */}
 
-                <button className='bg-black text-white text-center w-full rounded-3xl py-2 hover:bg-accent'>
+                <button className='bg-black text-white text-center w-full rounded-3xl py-2 hover:bg-green'>
                     Check Out
                 </button>
             </div>

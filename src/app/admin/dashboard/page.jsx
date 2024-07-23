@@ -12,13 +12,37 @@ const Dashboard = () => {
     const [updateTable, setUpdateTable] = useState(false);
 
     const dispatch = useAppDispatch();
+
+
     useEffect(() => {
-        dispatch(setLoading(true));
-        axios.get("/api/getproducts")
-            .then(res => setProducts(res.data))
-            .catch(err => console.log(err))
-            .finally(() => dispatch(setLoading(false)));
-    }, [updateTable]);
+        const fetchProducts = async () => {
+            dispatch(setLoading(true));
+            try {
+                const localResponse = await axios.get("/api/getproducts");
+                try {
+                    const externalResponse = await axios.get("https://fakestoreapi.com/products");
+
+                    const updatedProducts = await localResponse.data.map((product, index) => {
+                        if (product.id) {
+                            return { ...product, img: externalResponse.data[index].image };
+                        }
+                        return product;
+                    });
+                    console.log(externalResponse.data.image, updatedProducts);
+
+                    setProducts(updatedProducts)
+                } catch (error) {
+                    console.error("Error fetching external products:", error);
+                }
+                // setProducts(localResponse.data);
+            } catch (error) {
+                console.error("Error fetching local products:", error);
+            } finally {
+                dispatch(setLoading(false));
+            }
+        };
+        fetchProducts();
+    }, []);
 
     return (
         <div>

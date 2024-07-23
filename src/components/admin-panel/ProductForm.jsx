@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { makeToast } from '../../app/utlis/helper';
+import { useRouter } from 'next/navigation';
 
 export default function ProductForm() {
     const router = useRouter();
@@ -11,8 +11,7 @@ export default function ProductForm() {
         name: '',
         category: '',
         price: '',
-        description: '',
-        image: null // Add a field for the image file
+        description: ''
     });
 
     const handleChange = (e) => {
@@ -23,27 +22,13 @@ export default function ProductForm() {
         });
     };
 
-    const handleFileChange = (e) => {
-        setFormData({
-            ...formData,
-            image: e.target.files[0] // Update the image field with the selected file
-        });
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = new FormData();
-        data.append('name', formData.name);
-        data.append('category', formData.category);
-        data.append('price', formData.price);
-        data.append('description', formData.description);
-        data.append('img', formData.image);
-
         try {
-            const response = await axios.post('/api/addproduct', data, {
+            const response = await axios.post('/api/addproduct', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Product added:', response);
@@ -97,15 +82,6 @@ export default function ProductForm() {
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Image</label>
-                    <input
-                        type="file"
-                        name="image"
-                        onChange={handleFileChange}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
                     />
                 </div>
